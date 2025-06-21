@@ -3,8 +3,9 @@ import json
 import random
 from openai import OpenAI
 import os
+from tqdm import tqdm
 
-N_CASES = 5
+N_CASES = 200
 
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
@@ -36,7 +37,7 @@ for _, row in df.iterrows():
 selected_cases = random.sample(appropriate_cases, min(N_CASES, len(appropriate_cases)))
 
 patient_cases = []
-for case in selected_cases:
+for case in tqdm(selected_cases):
     variant = case['variant']
     procedures = case['procedures']
     
