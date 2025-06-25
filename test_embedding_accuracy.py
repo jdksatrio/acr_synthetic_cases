@@ -67,7 +67,7 @@ class EmbeddingEvaluator:
                     'retrieved_condition': retrieved_condition,
                     'retrieved_variant': retrieved_variant,
                     'exact_match': 'Yes' if exact_match else 'No',
-                    'cosine_distance': round(distance, 6)
+                    'euclidean_distance': round(distance, 6)
                 })
         
         # Convert to DataFrame and save
@@ -84,8 +84,8 @@ class EmbeddingEvaluator:
             'total_queries': total_queries,
             'exact_matches': exact_matches,
             'accuracy': round(accuracy, 4),
-            'mean_distance_exact_matches': round(results_df[results_df['exact_match'] == 'Yes']['cosine_distance'].mean(), 6) if exact_matches > 0 else None,
-            'mean_distance_all': round(results_df['cosine_distance'].mean(), 6)
+            'mean_distance_exact_matches': round(results_df[results_df['exact_match'] == 'Yes']['euclidean_distance'].mean(), 6) if exact_matches > 0 else None,
+            'mean_distance_all': round(results_df['euclidean_distance'].mean(), 6)
         }
         
         # Save detailed results
@@ -111,6 +111,7 @@ class EmbeddingEvaluator:
         print(f"Model: neuml/pubmedbert-base-embeddings")
         print(f"Embedding Method: Combined Condition + Variant")
         print(f"Query Method: Variant Only")
+        print(f"Distance Metric: Euclidean Distance (L2)")
         print(f"Evaluation Method: Cross-Modal Exact Match Retrieval")
         print()
         print("PERFORMANCE METRICS:")
